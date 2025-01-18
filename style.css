@@ -1,0 +1,364 @@
+:root{
+    --colorBoton: #e6ffde;
+    --valor-Levitar: 1;
+    --fruta-mov-dir: 1;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html{
+    height: 100%;
+}
+
+body{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+header{
+    position: fixed;
+    top: 0;
+    padding: 15px;
+    transform: scale(1.2);
+    font-weight: 800;
+    width: 100%;
+    z-index: 2;
+    text-align: center;
+}
+
+header h1{
+    font-size: 27px;
+    font-weight: 800;
+    transition: background left ease .5s;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    filter: blur(10);
+}
+
+.lata{
+    position: relative;
+    height: 60vh;
+    overflow: hidden;
+    mask-image: url('./img/lata.svg');
+    mask-mode: alpha;
+    mask-position: center;
+    mask-size: cover;
+}
+
+.lata img{
+    height: 100%;
+}
+
+.lata img[alt='etiqueta']{
+    mix-blend-mode: multiply;
+    position: absolute;
+    left: 0;
+    transition: left ease .5s;
+}
+
+
+.botones{
+    display: flex;
+    position: fixed;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.botones button{
+    z-index: 2;
+    margin: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background-color: #fff;
+    animation-name: gotas;
+    animation-duration: 2s;
+    animation-iteration-count: ease;
+    animation-iteration-count: infinite;
+}
+
+.botones button i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 10px #fff;
+    color: var(--colorBoton);
+    font-size: 20px;
+}
+
+.botones button#btn-R{
+    position: absolute;
+    right: 0;
+}
+
+.botones button#btn-L{
+    position: absolute;
+    left: 0;
+}
+
+.frutas{
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    z-index: -2;
+    transition: left 0.5s ease;
+}
+
+.frutas section h2{
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: #fff;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 25vw;
+    font-weight: 800;
+}
+.frutas section{
+    width: 100vw;
+    height: 100vh;
+}
+
+
+.frutas .fruits{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.frutas .fruits span{
+    position: absolute;
+    visibility: hidden;
+    animation-composition: accumulate;
+    animation: levitarX calc(var(--valor-Levitar)* 3s) ease-in-out calc( var(--valor-Levitar)* 500ms ) infinite alternate both,
+                levitarY calc(var(--valor-Levitar)* 4s) ease-in-out calc( var(--valor-Levitar)* 100ms ) infinite alternate both;
+}
+
+.frutas .fruits span img{
+    width: 100%;
+    position: relative;
+    opacity: 0;
+}
+
+.frutas .fruits span::after{
+    content: "";
+    display: flex;
+    background: linear-gradient(to right, transparent, black, transparent);
+    width: 80%;
+    height: 10px;
+    position: relative;
+    left: 10%;
+    filter: blur(10px);
+    opacity: 0;
+}
+
+.frutas .fruits span:nth-child(1){
+    visibility: visible;
+    width: 40vh;
+    left: 10vw;
+    bottom: 5vh;
+    --valor-Levitar: 4;
+    --fruta-mov-dir: 1;
+}
+.frutas .fruits span:nth-child(2){
+    visibility: visible;
+    width: 25vh;
+    left: 10vw;
+    top: 10vh;
+    --valor-Levitar: 2;
+    --fruta-mov-dir: -1;
+}
+.frutas .fruits span:nth-child(3){
+    visibility: visible;
+    width: 20vh;
+    right: 10vw;
+    top: 5vh;
+    --valor-Levitar: 3;
+    --fruta-mov-dir: -1;
+}
+.frutas .fruits span:nth-child(4){
+    visibility: visible;
+    width: 35vh;
+    bottom: 20vh;
+    right: 5vh;
+    --valor-Levitar: 1;
+    --fruta-mov-dir: 1;
+}
+
+
+/* clases de animacion desde js y css */
+.mostrar h2{
+    animation: mostrar-texto 1s ease both ;
+}
+.ocultar h2{
+    animation: ocultar-texto 1s ease both;
+}
+.mostrar .fruits span img{
+    animation: mostrar-frutas 0.5s ease both;
+}
+
+.ocultar .fruits span img{
+    animation: ocultar-frutas 0.5s ease both;
+}
+
+.mostrar .fruits span::after{
+    animation: mostrar-frutas 0.5s ease both;
+}
+
+.ocultar .fruits span::after{
+    animation: ocultar-frutas 0.5s ease both;
+}
+
+.mostrar_inicial .fruits span img{
+    animation: mostrar-frutas-Y 0.5s ease both;
+}
+
+.mostrar_inicial .fruits span::after{
+    animation: mostrar-frutas-Y 0.5s ease both;
+}
+
+
+
+@keyframes gotas {
+    from{
+        box-shadow: 0 0 0 0 var(--colorBoton);
+    }
+    to{
+        box-shadow: 0 0 0 20px #ffffff0c;
+    }
+}
+
+
+/* mostrar texto */
+@keyframes mostrar-texto {
+    from{
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+/* ocultar texto */
+@keyframes ocultar-texto {
+    from{
+        opacity: 1;
+        transform: translateX(0px);
+    }
+    to{
+        opacity: 0;
+        transform: translateX(100px);
+    }
+}
+
+/* mostrar frutas */
+@keyframes mostrar-frutas {
+    from{
+        opacity: 0;
+        transform: translateX(-100vh);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0vh);
+    }
+}
+/* ocultar frutas */
+@keyframes ocultar-frutas {
+    from{
+        opacity: 1;
+        transform: translateX(0vh);
+    }
+    to{
+        opacity: 0;
+        transform: translateX(100vh);
+    }
+}
+@keyframes mostrar-frutas-Y {
+    from{
+        opacity: 0;
+        transform: translateY(-100vh);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0vh);
+    }
+}
+
+
+@keyframes levitarX {
+    from{
+        transform: translateX( calc(-5px * var(--valor-Levitar)) );
+    }
+    to{
+        transform: translateX( calc(10px * var(--valor-Levitar)) );
+    }
+    
+}
+@keyframes levitarY {
+    from{
+        transform: translateY(calc(-5px * var(--valor-Levitar)));
+    }
+    to{
+        transform: translateY(calc(10px * var(--valor-Levitar)));
+    }
+}
+
+
+@media screen and (max-aspect-ratio: 4/3) {
+    h1{
+        font-size: 5vh;
+    }
+    .botones button{
+        width: 70px;
+        height: 70px;
+    }
+    .frutas section h2{
+        top: 30%;
+        font-size: 20vh;
+    }
+    .lata{
+        top: -30px;
+    }
+    .frutas .fruits span:nth-child(1){
+        left: 0;
+    }
+    .frutas .fruits span:nth-child(2){
+        left: 5vw;
+        top: 10vh;
+    }
+    .frutas .fruits span:nth-child(3){
+        right: 5vw;
+    }
+    .frutas .fruits span:nth-child(4){
+        bottom: 21vh;
+        right: 0vh;
+    }
+}
