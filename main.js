@@ -96,6 +96,7 @@ document.addEventListener(
     }
 )
 
+btnDer.addEventListener("click", ir_der);
 function ir_der() {
     if (viewInfo.posicionView < viewInfo.info.length - 1) {
         animar('ocultar');
