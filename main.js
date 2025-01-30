@@ -135,9 +135,9 @@ document.addEventListener( "touchend",
         terminarToqueY = parseInt(event.changedTouches[0].clientY);
         console.log("posicionX = ", terminarToqueX, " y posicionY = ", terminarToqueY);
 
-        if(emperzarToqueX - terminarToqueX > 150 || emperzarToqueY - terminarToqueY > 150){
+        if(emperzarToqueX - terminarToqueX > 100 || emperzarToqueY - terminarToqueY > 100){
             ir_der();
-        }else if(emperzarToqueX - terminarToqueX < -150 || emperzarToqueY - terminarToqueY < -150){
+        }else if(emperzarToqueX - terminarToqueX < -100 || emperzarToqueY - terminarToqueY < -100){
             ir_izq();
         }
     }
